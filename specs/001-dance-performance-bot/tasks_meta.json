@@ -1,0 +1,476 @@
+{
+  "feature": "001-dance-performance-bot",
+  "created": "2026-07-03T21:12:26+03:00",
+  "tasks": {
+    "T001": {
+      "description": "Create project structure",
+      "files": "src/modules/,src/common/,prisma/,tests/",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:18:56+03:00",
+      "completed_at": "2026-07-03T21:19:08+03:00",
+      "result_summary": "Created src/modules/{performances,roster,whatsapp,extraction}, src/common/{messages,config,prisma}, prisma/, tests/{contract,integration,unit}"
+    },
+    "T002": {
+      "description": "Initialize NestJS + TypeScript project with dependencies",
+      "files": "package.json",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:19:08+03:00",
+      "completed_at": "2026-07-03T21:20:08+03:00",
+      "result_summary": "Created package.json with NestJS/Prisma/OpenAI deps, tsconfig.json/tsconfig.build.json, nest-cli.json, .gitignore, .env.example"
+    },
+    "T003": {
+      "description": "Configure linting and formatting",
+      "files": "package.json,.eslintrc",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:20:08+03:00",
+      "completed_at": "2026-07-03T21:20:32+03:00",
+      "result_summary": "Added .eslintrc.cjs, .prettierrc, .eslintignore, .prettierignore"
+    },
+    "T004": {
+      "description": "Configure Jest + Supertest test runner",
+      "files": "jest.config.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:20:32+03:00",
+      "completed_at": "2026-07-03T21:22:41+03:00",
+      "result_summary": "Added jest.config.ts with unit/contract/integration projects; npm install succeeded (547 packages)"
+    },
+    "T005": {
+      "description": "Design Prisma schema for Performance and TroupeMember",
+      "files": "prisma/schema.prisma",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:22:59+03:00",
+      "completed_at": "2026-07-03T21:28:04+03:00",
+      "result_summary": "Wrote prisma/schema.prisma: TroupeMember + Performance models per data-model.md; prisma generate succeeded"
+    },
+    "T006": {
+      "description": "Generate and apply initial Prisma migration",
+      "files": "prisma/migrations/",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:28:04+03:00",
+      "completed_at": "2026-07-03T21:28:15+03:00",
+      "result_summary": "Generated and applied migration 20260703182806_init against local postgres"
+    },
+    "T007": {
+      "description": "Implement webhook signature verification guard",
+      "files": "src/modules/whatsapp/signature.guard.ts",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:30:01+03:00",
+      "completed_at": "2026-07-03T21:31:06+03:00",
+      "result_summary": "Added SignatureGuard verifying X-Hub-Signature-256 via HMAC-SHA256 + timing-safe compare, reject-closed on missing header/rawBody"
+    },
+    "T008": {
+      "description": "Implement roster-based sender authorization service",
+      "files": "src/modules/roster/roster.service.ts",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:29:21+03:00",
+      "completed_at": "2026-07-03T21:30:01+03:00",
+      "result_summary": "Added RosterService.resolveSender authorizing only roster-recognized phone numbers per FR-010/FR-011"
+    },
+    "T009": {
+      "description": "Implement TroupeMember repository",
+      "files": "src/modules/roster/roster.repository.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:29:31+03:00",
+      "completed_at": "2026-07-03T21:30:01+03:00",
+      "result_summary": "Added TroupeMember repository (find-by-phone, create); added global PrismaModule as shared plumbing"
+    },
+    "T010": {
+      "description": "Implement shared reply-formatting module",
+      "files": "src/common/messages/reply-formatter.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:28:58+03:00",
+      "completed_at": "2026-07-03T21:29:21+03:00",
+      "result_summary": "Added ReplyFormatter with confirm/clarify/query/cancel templates (base set; US-specific templates extended in T023/T031/T037)"
+    },
+    "T011": {
+      "description": "Implement Meta Cloud API outbound client wrapper",
+      "files": "src/modules/whatsapp/whatsapp-client.service.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:31:06+03:00",
+      "completed_at": "2026-07-03T21:31:38+03:00",
+      "result_summary": "Added WhatsAppClientService.sendTextMessage wrapping Meta Graph API send-message endpoint"
+    },
+    "T012": {
+      "description": "Implement config module for env vars",
+      "files": "src/common/config/config.module.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:28:15+03:00",
+      "completed_at": "2026-07-03T21:28:58+03:00",
+      "result_summary": "Added AppConfig loader + global ConfigModule exposing APP_CONFIG token"
+    },
+    "T013": {
+      "description": "Implement webhook controller skeleton",
+      "files": "src/modules/whatsapp/whatsapp.controller.ts",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:32:30+03:00",
+      "completed_at": "2026-07-03T21:40:11+03:00",
+      "result_summary": "Added WhatsAppController (GET verify handshake, POST guarded by SignatureGuard), IncomingMessageService (roster+activation gating), CommandRouterService fallback, main.ts rawBody capture. tsc --noEmit clean."
+    },
+    "T014": {
+      "description": "Implement activation-keyword/mention detection",
+      "files": "src/modules/whatsapp/activation.util.ts",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:31:38+03:00",
+      "completed_at": "2026-07-03T21:32:30+03:00",
+      "result_summary": "Added hasActivationKeyword/stripActivationKeyword utilities per research.md §3"
+    },
+    "T015": {
+      "description": "Contract test add-performance webhook",
+      "files": "tests/contract/whatsapp-webhook.add.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:57:01+03:00",
+      "completed_at": "2026-07-03T21:57:01+03:00",
+      "result_summary": "Contract test: signed/unsigned/invalid-signature POST cases; all pass"
+    },
+    "T016": {
+      "description": "Integration test well-formed add message",
+      "files": "tests/integration/add-performance.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:57:01+03:00",
+      "completed_at": "2026-07-03T21:57:01+03:00",
+      "result_summary": "Integration test: well-formed add message stores performance + sends confirmation; passes"
+    },
+    "T017": {
+      "description": "Integration test missing-location clarify",
+      "files": "tests/integration/add-performance-clarify.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:57:01+03:00",
+      "completed_at": "2026-07-03T21:57:01+03:00",
+      "result_summary": "Integration test: missing location triggers clarifying reply, no record created; passes"
+    },
+    "T018": {
+      "description": "Integration test update existing performance",
+      "files": "tests/integration/update-performance.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:57:01+03:00",
+      "completed_at": "2026-07-03T21:57:01+03:00",
+      "result_summary": "Integration test: location change updates existing record, no duplicate; passes"
+    },
+    "T019": {
+      "description": "Implement Performance repository",
+      "files": "src/modules/performances/performances.repository.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:41:05+03:00",
+      "completed_at": "2026-07-03T21:42:56+03:00",
+      "result_summary": "Added PerformancesRepository (findUpcomingByDate, create, update, cancel, findUpcoming, findNextUpcoming) and toPerformanceSummary mapper"
+    },
+    "T020": {
+      "description": "Implement NL extraction service",
+      "files": "src/modules/extraction/extraction.service.ts",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:42:56+03:00",
+      "completed_at": "2026-07-03T21:49:49+03:00",
+      "result_summary": "Added ExtractionService using OpenAI tool-calling with fixed JSON schema (intent + date/time/location/notes/confidence) per research.md §4"
+    },
+    "T021": {
+      "description": "Implement add/update-performance service logic",
+      "files": "src/modules/performances/performances.service.ts",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:49:49+03:00",
+      "completed_at": "2026-07-03T21:50:31+03:00",
+      "result_summary": "Added PerformancesService.addOrUpdate (validate date+location, match-by-date update-vs-create per data-model.md) and .cancel (status transition); date-parsing helpers; MissingFieldsError"
+    },
+    "T022": {
+      "description": "Wire add/update flow into webhook controller",
+      "files": "src/modules/whatsapp/whatsapp.controller.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:50:31+03:00",
+      "completed_at": "2026-07-03T21:57:01+03:00",
+      "result_summary": "Wired add/update flow into CommandRouterService (extraction -> PerformancesService.addOrUpdate -> confirm/clarify reply)"
+    },
+    "T023": {
+      "description": "Add confirmation and clarifying-question templates",
+      "files": "src/common/messages/reply-formatter.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:57:01+03:00",
+      "completed_at": "2026-07-03T21:57:01+03:00",
+      "result_summary": "Confirmation/clarifying-question templates already added in T010's ReplyFormatter (confirmAdded/confirmUpdated/askClarification); verified via US1 integration tests"
+    },
+    "T024": {
+      "description": "Contract test query webhook",
+      "files": "tests/contract/whatsapp-webhook.query.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:09:26+03:00",
+      "completed_at": "2026-07-03T22:10:10+03:00",
+      "result_summary": "Contract test: signed query-type payload accepted and acked"
+    },
+    "T025": {
+      "description": "Integration test next-performance query",
+      "files": "tests/integration/query-next-performance.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:10:10+03:00",
+      "completed_at": "2026-07-03T22:10:26+03:00",
+      "result_summary": "Integration test: next-performance query answers from stored data"
+    },
+    "T026": {
+      "description": "Integration test none-found query",
+      "files": "tests/integration/query-none-found.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:10:26+03:00",
+      "completed_at": "2026-07-03T22:11:23+03:00",
+      "result_summary": "Integration test: query with nothing scheduled returns clear none-found reply"
+    },
+    "T027": {
+      "description": "Integration test upcoming list query",
+      "files": "tests/integration/query-list.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:11:23+03:00",
+      "completed_at": "2026-07-03T22:12:55+03:00",
+      "result_summary": "Integration test: full upcoming list returned in chronological order"
+    },
+    "T028": {
+      "description": "Implement query service",
+      "files": "src/modules/performances/performances-query.service.ts",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:57:30+03:00",
+      "completed_at": "2026-07-03T21:57:59+03:00",
+      "result_summary": "Added PerformancesQueryService (findNext, findOnDate, listUpcoming) — direct typed DB queries, no LLM involved in retrieval, per research.md §5"
+    },
+    "T029": {
+      "description": "Implement grounded-answer phrasing",
+      "files": "src/modules/extraction/grounded-answer.service.ts",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T21:57:59+03:00",
+      "completed_at": "2026-07-03T22:08:23+03:00",
+      "result_summary": "Added GroundedAnswerService phrasing next/date/list answers deterministically via ReplyFormatter over already-retrieved rows (simplification vs LLM-phrasing noted in file comment)"
+    },
+    "T030": {
+      "description": "Wire query flow into webhook controller",
+      "files": "src/modules/whatsapp/whatsapp.controller.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:08:23+03:00",
+      "completed_at": "2026-07-03T22:09:13+03:00",
+      "result_summary": "Wired query_next/query_date/query_list intents into CommandRouterService dispatch"
+    },
+    "T031": {
+      "description": "Add query-answer and none-found templates",
+      "files": "src/common/messages/reply-formatter.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:09:13+03:00",
+      "completed_at": "2026-07-03T22:09:13+03:00",
+      "result_summary": "Query-answer/none-found templates already present in T010's ReplyFormatter (answerNextPerformance/answerDateQuery/answerUpcomingList); verified via US2 integration tests"
+    },
+    "T032": {
+      "description": "Contract test cancel webhook",
+      "files": "tests/contract/whatsapp-webhook.cancel.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:15:28+03:00",
+      "completed_at": "2026-07-03T22:15:46+03:00",
+      "result_summary": "Contract test: signed cancel-type payload accepted and acked"
+    },
+    "T033": {
+      "description": "Integration test cancel performance",
+      "files": "tests/integration/cancel-performance.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:15:46+03:00",
+      "completed_at": "2026-07-03T22:16:17+03:00",
+      "result_summary": "Integration test: cancel then verify excluded from upcoming query (SC-003)"
+    },
+    "T034": {
+      "description": "Integration test cancel not-found",
+      "files": "tests/integration/cancel-not-found.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:16:17+03:00",
+      "completed_at": "2026-07-03T22:17:03+03:00",
+      "result_summary": "Integration test: cancel non-existent performance returns not-found reply"
+    },
+    "T035": {
+      "description": "Implement cancel-performance service logic",
+      "files": "src/modules/performances/performances.service.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:13:24+03:00",
+      "completed_at": "2026-07-03T22:13:47+03:00",
+      "result_summary": "Cancel logic (status transition upcoming->cancelled) was already added to PerformancesService in T021 (same file, cancel() method)"
+    },
+    "T036": {
+      "description": "Wire cancel flow into webhook controller",
+      "files": "src/modules/whatsapp/whatsapp.controller.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:13:47+03:00",
+      "completed_at": "2026-07-03T22:14:41+03:00",
+      "result_summary": "Wired 'cancel' intent into CommandRouterService (missing-date clarify, not-found, confirm-cancelled)"
+    },
+    "T037": {
+      "description": "Add cancellation-confirmation templates",
+      "files": "src/common/messages/reply-formatter.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:14:41+03:00",
+      "completed_at": "2026-07-03T22:14:41+03:00",
+      "result_summary": "Cancellation-confirmation/not-found templates already present in T010's ReplyFormatter (confirmCancelled/cancelNotFound)"
+    },
+    "T038": {
+      "description": "Unit tests for activation-keyword detection",
+      "files": "tests/unit/activation.util.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:17:37+03:00",
+      "completed_at": "2026-07-03T22:18:26+03:00",
+      "result_summary": "Unit tests for activation-keyword detect/strip: case-insensitivity, regex-special chars, empty keyword, mid-message detection"
+    },
+    "T039": {
+      "description": "Unit tests for extraction schema validation",
+      "files": "tests/unit/extraction.service.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:18:26+03:00",
+      "completed_at": "2026-07-03T22:19:37+03:00",
+      "result_summary": "Unit tests for ExtractionService: well-formed tool-call parse, no-tool-call fallback, wrong-tool-name fallback"
+    },
+    "T040": {
+      "description": "Webhook latency benchmark",
+      "files": "tests/contract/webhook-latency.bench.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:19:37+03:00",
+      "completed_at": "2026-07-03T22:20:17+03:00",
+      "result_summary": "Latency benchmark: 20 iterations of webhook->ack, asserts p95 < 5000ms budget"
+    },
+    "T041": {
+      "description": "Write setup README",
+      "files": "README.md",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:20:17+03:00",
+      "completed_at": "2026-07-03T22:27:10+03:00",
+      "result_summary": "Added README.md covering setup, scripts, architecture overview, links to specs"
+    },
+    "T042": {
+      "description": "Run quickstart.md validation manually",
+      "files": "specs/001-dance-performance-bot/quickstart.md",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:27:10+03:00",
+      "completed_at": "2026-07-03T22:27:10+03:00",
+      "result_summary": "Booted the real (non-test) server against local Postgres and hit real HTTP endpoints: GET verify handshake (200 correct token / 403 wrong token), POST missing-signature (401), POST unrecognized sender (200, silently ignored, no OpenAI call), POST authorized+activated (reached OpenAI boundary, 500 due to dummy API key as expected). Full live validation against real Meta/OpenAI requires credentials not available in this environment -- documented in quickstart.md."
+    },
+    "T043": {
+      "description": "Docker + CI scaffolding",
+      "files": "Dockerfile,.github/workflows/ci.yml",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-03T22:29:58+03:00",
+      "completed_at": "2026-07-03T22:35:22+03:00",
+      "result_summary": "Added Dockerfile (multi-stage, Alpine + openssl for Prisma's query engine), .dockerignore, .github/workflows/ci.yml (postgres service, lint+test gate). Docker build+run verified locally; caught and fixed a real missing-libssl runtime bug."
+    },
+    "T044": {
+      "description": "Integration test: unrecognized sender silently ignored",
+      "files": "tests/integration/unauthorized-sender.test.ts",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T11:48:58+03:00",
+      "completed_at": "2026-07-04T11:49:56+03:00",
+      "result_summary": "Added tests/integration/unauthorized-sender.test.ts verifying non-roster senders are silently ignored"
+    },
+    "T045": {
+      "description": "Integration test: roster member without activation keyword ignored",
+      "files": "tests/integration/no-activation-keyword.test.ts",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T11:49:56+03:00",
+      "completed_at": "2026-07-04T11:50:24+03:00",
+      "result_summary": "Added tests/integration/no-activation-keyword.test.ts verifying non-activated roster messages are ignored"
+    },
+    "T046": {
+      "description": "Integration tests: query_date intent, matched and no-match",
+      "files": "tests/integration/query-date.test.ts",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T11:50:24+03:00",
+      "completed_at": "2026-07-04T11:51:44+03:00",
+      "result_summary": "Added tests/integration/query-date-match.test.ts and query-date-no-match.test.ts covering the query_date intent path"
+    },
+    "T047": {
+      "description": "Clarify + test past-date add behavior",
+      "files": "specs/001-dance-performance-bot/spec.md,tests/integration/add-performance-past-date.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T11:51:44+03:00",
+      "completed_at": "2026-07-04T11:52:30+03:00",
+      "result_summary": "Filtered upcoming/next queries by date>=today; added tests/integration/past-date-performance.test.ts"
+    }
+  }
+}

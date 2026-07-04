@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "presets": {
+    "agentic-sdlc": {
+      "version": "1.6.0",
+      "source": "local",
+      "manifest_hash": "sha256:9c66e54cff87b8547728c50ad29e6c73248fd39b70f576d90f557f4e8be48b2a",
+      "enabled": true,
+      "priority": 10,
+      "registered_commands": {
+        "claude": [
+          "spec.specify",
+          "spec.plan",
+          "spec.clarify",
+          "spec.tasks",
+          "spec.checklist",
+          "spec.analyze",
+          "spec.implement",
+          "spec.constitution",
+          "spec.brainstorm",
+          "spec.converge",
+          "spec.trace"
+        ]
+      },
+      "registered_skills": [
+        "spec-specify",
+        "spec-plan",
+        "spec-clarify",
+        "spec-tasks",
+        "spec-checklist",
+        "spec-analyze",
+        "spec-implement",
+        "spec-constitution",
+        "spec-brainstorm",
+        "spec-converge",
+        "spec-trace"
+      ],
+      "installed_at": "2026-07-03T17:53:34.562728+00:00"
+    },
+    "agentic-change": {
+      "version": "1.4.0",
+      "source": "local",
+      "manifest_hash": "sha256:acf27ecf0fd799b30c67235e26dd6997bf69aa2f1cb4ca27dc664954fa15471f",
+      "enabled": true,
+      "priority": 10,
+      "registered_commands": {
+        "claude": [
+          "change.specify",
+          "change.implement",
+          "change.converge",
+          "change.levelup"
+        ]
+      },
+      "registered_skills": [
+        "change-specify",
+        "change-implement",
+        "change-converge",
+        "change-levelup"
+      ],
+      "installed_at": "2026-07-03T17:53:34.822412+00:00"
+    },
+    "agentic-quick": {
+      "version": "1.2.0",
+      "source": "local",
+      "manifest_hash": "sha256:2527fac6b70208fc30cce55d14bfa8359d904ddfd7a9711da36bcb4a40ecbeb7",
+      "enabled": true,
+      "priority": 10,
+      "registered_commands": {
+        "claude": [
+          "quick.implement",
+          "quick.levelup"
+        ]
+      },
+      "registered_skills": [
+        "quick-implement",
+        "quick-levelup"
+      ],
+      "installed_at": "2026-07-03T17:53:34.957585+00:00"
+    }
+  }
+}
