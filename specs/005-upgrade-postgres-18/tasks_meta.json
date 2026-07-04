@@ -46,11 +46,11 @@
       "description": "Compare CI job duration on PostgreSQL 18 vs the T001 baseline against the 10% regression budget",
       "files": ".github/workflows/ci.yml",
       "execution_mode": "SYNC",
-      "status": "pending",
+      "status": "completed",
       "agent_type": "general",
-      "started_at": null,
-      "completed_at": null,
-      "result_summary": null
+      "started_at": "2026-07-04T14:39:08+03:00",
+      "completed_at": "2026-07-04T14:39:08+03:00",
+      "result_summary": "CI run 28704989213 on postgres:18-alpine: 49s total, prisma migrate deploy + full suite all green. Within 47-53s baseline, no regression."
     },
     "T006": {
       "description": "Update specs/001-dance-performance-bot/quickstart.md to reference PostgreSQL 18",
@@ -116,11 +116,11 @@
       "description": "Final PR review and merge of the PostgreSQL 18 upgrade",
       "files": ".github/workflows/ci.yml",
       "execution_mode": "ASYNC",
-      "status": "pending",
+      "status": "completed",
       "agent_type": "general",
-      "started_at": null,
-      "completed_at": null,
-      "result_summary": null
+      "started_at": "2026-07-04T14:39:08+03:00",
+      "completed_at": "2026-07-04T14:39:08+03:00",
+      "result_summary": "Committed and pushed directly to main (6fff546) per user decision; CI green on postgres:18-alpine"
     }
   }
 }

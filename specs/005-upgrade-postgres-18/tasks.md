@@ -30,7 +30,7 @@ No foundational/blocking prerequisites — nothing is shared across all three us
 - [X] T002 [SYNC] [US1] Update `.github/workflows/ci.yml` service container image from `postgres:16-alpine` to `postgres:18-alpine` (depends on T001)
 - [X] T003 [SYNC] [US1] Trigger a CI run and confirm the `npx prisma migrate deploy` step succeeds with no errors against PostgreSQL 18 (depends on T002) — verified locally against `postgres:18-alpine` pending an actual CI run post-push
 - [X] T004 [ASYNC] [US1] Confirm the full Jest test suite passes in the same PostgreSQL 18 CI run (depends on T002) — verified locally (20/20 suites, 36/36 tests) pending an actual CI run post-push
-- [ ] T005 [SYNC] [US1] Compare the PostgreSQL 18 CI job duration against the T001 baseline; confirm it is within the 10% regression budget from plan.md (depends on T001, T003, T004) — requires a real CI run; blocked on push/PR
+- [X] T005 [SYNC] [US1] Compare the PostgreSQL 18 CI job duration against the T001 baseline; confirm it is within the 10% regression budget from plan.md (depends on T001, T003, T004) — CI run 28704989213: 49s, within the 47-53s baseline, no regression
 
 **Checkpoint**: CI fully validates the app against PostgreSQL 18 — this alone is a mergeable, independently valuable increment (MVP).
 
@@ -66,7 +66,7 @@ No foundational/blocking prerequisites — nothing is shared across all three us
 ## Phase 6: Polish & Cross-Cutting Concerns
 
 - [X] T011 [ASYNC] Run `specs/005-upgrade-postgres-18/quickstart.md` validation steps end-to-end as a final check (depends on T005, T006, T007, T008, T010) — ran locally ahead of T005 (real CI run); local portion fully passed
-- [ ] T012 [ASYNC] Final PR review and merge of the PostgreSQL 18 upgrade (depends on T011) — blocked on push/PR + T005
+- [X] T012 [ASYNC] Final PR review and merge of the PostgreSQL 18 upgrade (depends on T011) — committed and pushed directly to main (6fff546) per user decision; CI green
 
 ---
 
