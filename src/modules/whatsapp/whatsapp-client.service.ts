@@ -14,7 +14,7 @@ export class WhatsAppClientService {
 
   constructor(@Inject(APP_CONFIG) private readonly config: AppConfig) {}
 
-  async sendTextMessage(to: string, body: string): Promise<void> {
+  async sendTextMessage(to: string, body: string, recipientType?: 'group'): Promise<void> {
     const url = `https://graph.facebook.com/${GRAPH_API_VERSION}/${this.config.whatsapp.phoneNumberId}/messages`;
 
     const response = await fetch(url, {
@@ -25,6 +25,7 @@ export class WhatsAppClientService {
       },
       body: JSON.stringify({
         messaging_product: 'whatsapp',
+        ...(recipientType ? { recipient_type: recipientType } : {}),
         to,
         type: 'text',
         text: { body },

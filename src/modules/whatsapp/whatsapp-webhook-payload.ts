@@ -5,6 +5,7 @@ export interface WhatsAppWebhookPayload {
       value: {
         messages?: Array<{
           from: string;
+          group_id?: string;
           type: string;
           text?: { body: string };
         }>;
@@ -15,6 +16,7 @@ export interface WhatsAppWebhookPayload {
 
 export interface InboundMessage {
   from: string;
+  groupId?: string;
   text: string;
 }
 
@@ -24,7 +26,7 @@ export function extractInboundMessages(payload: WhatsAppWebhookPayload): Inbound
     for (const change of entry.changes ?? []) {
       for (const message of change.value.messages ?? []) {
         if (message.type === 'text' && message.text?.body) {
-          messages.push({ from: message.from, text: message.text.body });
+          messages.push({ from: message.from, groupId: message.group_id, text: message.text.body });
         }
       }
     }

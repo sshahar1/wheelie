@@ -1,0 +1,134 @@
+{
+  "feature": "003-fix-group-reply-routing",
+  "created": "2026-07-04T13:17:23+03:00",
+  "tasks": {
+    "T001": {
+      "description": "Run npm test baseline before changes",
+      "files": "package.json",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T13:23:04+03:00",
+      "completed_at": "2026-07-04T13:23:45+03:00",
+      "result_summary": "Baseline confirmed: 19 suites/30 tests pass pre-fix"
+    },
+    "T002": {
+      "description": "Add group_id capture to WhatsAppWebhookPayload/InboundMessage/extractInboundMessages",
+      "files": "src/modules/whatsapp/whatsapp-webhook-payload.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T13:23:58+03:00",
+      "completed_at": "2026-07-04T13:26:42+03:00",
+      "result_summary": "Added optional group_id/groupId capture to payload types + extractInboundMessages"
+    },
+    "T003": {
+      "description": "Add optional groupId param to buildTextMessagePayload",
+      "files": "tests/support/webhook-payload-builder.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T13:26:50+03:00",
+      "completed_at": "2026-07-04T13:27:23+03:00",
+      "result_summary": "Added optional groupId param to buildTextMessagePayload, default undefined"
+    },
+    "T004": {
+      "description": "New contract test for group-reply outbound shape",
+      "files": "tests/contract/whatsapp-webhook.group-reply.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T13:28:13+03:00",
+      "completed_at": "2026-07-04T13:29:33+03:00",
+      "result_summary": "New contract test written + test-app.ts mock extended with recipientType; confirmed reproduces the bug pre-fix"
+    },
+    "T005": {
+      "description": "Extend add-performance integration test with group scenario",
+      "files": "tests/integration/add-performance.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T13:29:40+03:00",
+      "completed_at": "2026-07-04T13:30:29+03:00",
+      "result_summary": "Added group-shaped scenario; confirmed fails pre-fix"
+    },
+    "T006": {
+      "description": "Extend add-performance-clarify integration test with group scenario",
+      "files": "tests/integration/add-performance-clarify.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T13:30:36+03:00",
+      "completed_at": "2026-07-04T13:31:02+03:00",
+      "result_summary": "Added group-shaped scenario; confirmed fails pre-fix"
+    },
+    "T007": {
+      "description": "Extend query-list integration test with group scenario",
+      "files": "tests/integration/query-list.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T13:31:02+03:00",
+      "completed_at": "2026-07-04T13:31:29+03:00",
+      "result_summary": "Added group-shaped scenario; confirmed fails pre-fix"
+    },
+    "T008": {
+      "description": "Extend cancel-performance integration test with group scenario",
+      "files": "tests/integration/cancel-performance.test.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T13:31:29+03:00",
+      "completed_at": "2026-07-04T13:31:58+03:00",
+      "result_summary": "Added group-shaped scenario; confirmed fails pre-fix"
+    },
+    "T009": {
+      "description": "Update sendTextMessage to support recipient_type group",
+      "files": "src/modules/whatsapp/whatsapp-client.service.ts",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T13:32:07+03:00",
+      "completed_at": "2026-07-04T13:32:34+03:00",
+      "result_summary": "sendTextMessage now accepts optional recipientType='group', adds recipient_type field to outbound body only when set; 1:1 shape unchanged",
+      "micro_reviewed_at": "2026-07-04T13:32:34+03:00",
+      "micro_review_passed": true,
+      "quality_gate_passed": true,
+      "quality_gate_at": "2026-07-04T13:32:50+03:00"
+    },
+    "T010": {
+      "description": "Route reply to group_id when present in IncomingMessageService.handle",
+      "files": "src/modules/whatsapp/incoming-message.service.ts",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T13:33:09+03:00",
+      "completed_at": "2026-07-04T13:33:43+03:00",
+      "result_summary": "Reply now routes to message.groupId with recipientType='group' when present, else falls back to message.from unchanged; full suite green (20/20, 36/36)",
+      "micro_reviewed_at": "2026-07-04T13:33:43+03:00",
+      "micro_review_passed": true,
+      "quality_gate_passed": true,
+      "quality_gate_at": "2026-07-04T13:33:43+03:00"
+    },
+    "T011": {
+      "description": "Run full npm test to confirm all pass",
+      "files": "package.json",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T13:33:53+03:00",
+      "completed_at": "2026-07-04T13:34:08+03:00",
+      "result_summary": "Confirmed: 20 suites/36 tests all pass (30 pre-existing unmodified + 6 new group-routing tests)"
+    },
+    "T012": {
+      "description": "Run npm run lint on changed files",
+      "files": "package.json",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T13:34:08+03:00",
+      "completed_at": "2026-07-04T13:34:24+03:00",
+      "result_summary": "eslint on all 10 changed files: 0 warnings/errors. Pre-existing unrelated jest.config.ts parserOptions failure (out of scope) not touched by this feature"
+    }
+  }
+}

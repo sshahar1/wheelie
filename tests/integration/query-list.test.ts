@@ -19,6 +19,7 @@ describe('User Story 2: list all upcoming performances', () => {
 
   beforeEach(async () => {
     await resetDatabase(ctx.prisma);
+    ctx.sentMessages.length = 0;
   });
 
   it('lists all future performances in chronological order', async () => {
@@ -62,5 +63,44 @@ describe('User Story 2: list all upcoming performances', () => {
     expect(ctx.sentMessages).toHaveLength(1);
     const body = ctx.sentMessages[0].body;
     expect(body.indexOf('First Venue')).toBeLessThan(body.indexOf('Second Venue'));
+  });
+
+  it('answers the schedule question in the group, not privately to the sender', async () => {
+    const member = await seedTroupeMember(ctx.prisma, 'Dana', '15550002222');
+    await ctx.prisma.performance.create({
+      data: {
+        date: new Date('2026-10-01T00:00:00.000Z'),
+        location: 'Second Venue',
+        createdByMemberId: member.id,
+        lastUpdatedByMemberId: member.id,
+      },
+    });
+
+    ctx.setNextExtraction({
+      intent: 'query_list',
+      date: null,
+      time: null,
+      location: null,
+      notes: null,
+      confidence: 0.9,
+    });
+
+    const payload = buildTextMessagePayload(
+      '15550002222',
+      '@bot what performances do we have coming up?',
+      '120000000000000000',
+    );
+    const { rawBody, signature } = buildSignedRequest(payload, APP_SECRET);
+
+    await request(ctx.app.getHttpServer())
+      .post('/webhook/whatsapp')
+      .set('Content-Type', 'application/json')
+      .set('X-Hub-Signature-256', signature)
+      .send(rawBody)
+      .expect(200);
+
+    expect(ctx.sentMessages).toHaveLength(1);
+    expect(ctx.sentMessages[0].to).toBe('120000000000000000');
+    expect(ctx.sentMessages[0].recipientType).toBe('group');
   });
 });

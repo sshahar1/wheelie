@@ -38,6 +38,10 @@ export class IncomingMessageService {
 
     const commandText = stripActivationKeyword(message.text, activationKeyword);
     const reply = await this.commandRouter.route(resolution.member, commandText);
-    await this.whatsAppClient.sendTextMessage(message.from, reply);
+    if (message.groupId) {
+      await this.whatsAppClient.sendTextMessage(message.groupId, reply, 'group');
+    } else {
+      await this.whatsAppClient.sendTextMessage(message.from, reply);
+    }
   }
 }

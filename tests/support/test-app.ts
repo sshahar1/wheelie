@@ -10,6 +10,7 @@ import { ExtractionResult } from '../../src/modules/extraction/extraction.types'
 export interface SentMessage {
   to: string;
   body: string;
+  recipientType?: 'group';
 }
 
 export interface TestAppContext {
@@ -49,8 +50,8 @@ export async function createTestApp(): Promise<TestAppContext> {
   };
 
   const mockWhatsAppClient = {
-    sendTextMessage: async (to: string, body: string) => {
-      sentMessages.push({ to, body });
+    sendTextMessage: async (to: string, body: string, recipientType?: 'group') => {
+      sentMessages.push({ to, body, recipientType });
     },
   };
 

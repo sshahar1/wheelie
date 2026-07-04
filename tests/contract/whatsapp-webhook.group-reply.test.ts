@@ -6,7 +6,7 @@ import { buildTextMessagePayload } from '../support/webhook-payload-builder';
 
 const APP_SECRET = 'test-app-secret';
 
-describe('User Story 1: clarifying question on missing details', () => {
+describe('Contract: outbound reply destination (contracts/group-reply-routing.md)', () => {
   let ctx: TestAppContext;
 
   beforeAll(async () => {
@@ -20,50 +20,21 @@ describe('User Story 1: clarifying question on missing details', () => {
   beforeEach(async () => {
     await resetDatabase(ctx.prisma);
     ctx.sentMessages.length = 0;
-  });
-
-  it('asks for the missing location instead of storing an incomplete record', async () => {
-    await seedTroupeMember(ctx.prisma, 'Dana', '15550001111');
     ctx.setNextExtraction({
       intent: 'add_or_update',
       date: '2026-08-14',
-      time: null,
-      location: null,
+      time: '19:00',
+      location: 'Community Center',
       notes: null,
-      confidence: 0.4,
+      confidence: 0.95,
     });
-
-    const payload = buildTextMessagePayload('15550001111', '@bot we have a show on August 14th');
-    const { rawBody, signature } = buildSignedRequest(payload, APP_SECRET);
-
-    await request(ctx.app.getHttpServer())
-      .post('/webhook/whatsapp')
-      .set('Content-Type', 'application/json')
-      .set('X-Hub-Signature-256', signature)
-      .send(rawBody)
-      .expect(200);
-
-    const stored = await ctx.prisma.performance.findMany();
-    expect(stored).toHaveLength(0);
-
-    expect(ctx.sentMessages).toHaveLength(1);
-    expect(ctx.sentMessages[0].body.toLowerCase()).toContain('location');
   });
 
-  it('asks the clarifying question in the group, not privately to the sender', async () => {
+  it('sends the reply to the group_id with recipient_type "group" when the inbound message came from the group', async () => {
     await seedTroupeMember(ctx.prisma, 'Dana', '15550001111');
-    ctx.setNextExtraction({
-      intent: 'add_or_update',
-      date: '2026-08-14',
-      time: null,
-      location: null,
-      notes: null,
-      confidence: 0.4,
-    });
-
     const payload = buildTextMessagePayload(
       '15550001111',
-      '@bot we have a show on August 14th',
+      '@bot we have a show at the community center on August 14th at 7pm',
       '120000000000000000',
     );
     const { rawBody, signature } = buildSignedRequest(payload, APP_SECRET);
@@ -78,6 +49,25 @@ describe('User Story 1: clarifying question on missing details', () => {
     expect(ctx.sentMessages).toHaveLength(1);
     expect(ctx.sentMessages[0].to).toBe('120000000000000000');
     expect(ctx.sentMessages[0].recipientType).toBe('group');
-    expect(ctx.sentMessages[0].body.toLowerCase()).toContain('location');
+  });
+
+  it('sends the reply to the sender with no recipient_type when there is no group_id (1:1 fallback)', async () => {
+    await seedTroupeMember(ctx.prisma, 'Dana', '15550001111');
+    const payload = buildTextMessagePayload(
+      '15550001111',
+      '@bot we have a show at the community center on August 14th at 7pm',
+    );
+    const { rawBody, signature } = buildSignedRequest(payload, APP_SECRET);
+
+    await request(ctx.app.getHttpServer())
+      .post('/webhook/whatsapp')
+      .set('Content-Type', 'application/json')
+      .set('X-Hub-Signature-256', signature)
+      .send(rawBody)
+      .expect(200);
+
+    expect(ctx.sentMessages).toHaveLength(1);
+    expect(ctx.sentMessages[0].to).toBe('15550001111');
+    expect(ctx.sentMessages[0].recipientType).toBeUndefined();
   });
 });
