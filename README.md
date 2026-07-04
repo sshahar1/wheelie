@@ -20,7 +20,7 @@ npx prisma migrate dev
 npm run start:dev
 ```
 
-Requires a running PostgreSQL instance matching `DATABASE_URL`, and a public HTTPS URL (e.g.
+Requires a running PostgreSQL 18 instance matching `DATABASE_URL`, and a public HTTPS URL (e.g.
 a tunnel) pointed at `/webhook/whatsapp` for Meta's webhook callback during local development.
 
 ## Scripts

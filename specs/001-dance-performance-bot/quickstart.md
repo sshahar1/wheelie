@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Node.js 20 LTS, a PostgreSQL instance (local Docker container is fine)
+- Node.js 20 LTS, a PostgreSQL 18 instance (local Docker container is fine)
 - A Meta developer app with WhatsApp Cloud API enabled, a test phone number, and:
   - `WHATSAPP_ACCESS_TOKEN`
   - `WHATSAPP_PHONE_NUMBER_ID`
