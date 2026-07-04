@@ -1,0 +1,30 @@
+{
+  "feature": "006-readme-logo",
+  "created": "2026-07-04T16:02:43+03:00",
+  "tasks": {
+    "T001": {
+      "description": "Add wheelie_logo.png image reference near the top of README.md",
+      "files": "README.md",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T16:05:38+03:00",
+      "completed_at": "2026-07-04T16:06:05+03:00",
+      "result_summary": "Added <img> reference to wheelie_logo.png (width=200) above the H1 title in README.md",
+      "micro_reviewed_at": "2026-07-04T16:06:05+03:00",
+      "micro_review_passed": true
+    },
+    "T002": {
+      "description": "Run quickstart.md validation: render README and confirm logo displays with no regressions",
+      "files": "README.md",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T16:06:14+03:00",
+      "completed_at": "2026-07-04T16:06:34+03:00",
+      "result_summary": "Verified: image file exists at referenced relative path (740x890 PNG), README diff shows only the intended 2-line insertion with no regressions elsewhere",
+      "micro_reviewed_at": "2026-07-04T16:06:34+03:00",
+      "micro_review_passed": true
+    }
+  }
+}

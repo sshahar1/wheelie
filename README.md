@@ -1,3 +1,5 @@
+<img src="wheelie_logo.png" alt="Wheelie logo" width="200">
+
 # Dance Troupe Performance Bot
 
 [![CI](https://github.com/sshahar1/wheelie/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/sshahar1/wheelie/actions/workflows/ci.yml)
