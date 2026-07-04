@@ -85,8 +85,12 @@ complete successfully with no failures attributable to the runtime change.
   **Result**: PASS — image builds cleanly from `node:24-alpine` (both stages); container
   starts and NestJS logs "Nest application successfully started" with all modules and routes
   mapped correctly.
-- [ ] T007 [US1] Push the branch / open a PR and confirm the `CI` GitHub Actions workflow
+- [X] T007 [US1] Push the branch / open a PR and confirm the `CI` GitHub Actions workflow
   completes successfully end-to-end on Node 24 per quickstart.md step 5 (depends on T004, T005)
+
+  **Result**: PASS — pushed directly to `main` at commit `237c25a` (per explicit user
+  direction). CI run [28702650260](https://github.com/sshahar1/wheelie/actions/runs/28702650260)
+  completed successfully on `node-version: 24`.
 
 **Checkpoint**: User Story 1 is fully functional and independently testable (MVP) — CI is
 green and the Docker image runs correctly on Node 24
@@ -131,8 +135,13 @@ and a single declared source of truth keeps local dev environments in sync
   `package.json`, or docs. The one remaining match (`package-lock.json:2645`,
   `"node": "^20.19.0 || ^22.13.0 || >=24"`) is a third-party dependency's own declared
   `engines` range (auto-generated lockfile metadata), not a project pin — not in scope.
-- [ ] T012 Run the full quickstart.md validation end-to-end (steps 1–6) as a final closeout
+- [X] T012 Run the full quickstart.md validation end-to-end (steps 1–6) as a final closeout
   check confirming SC-001 through SC-004 all hold
+
+  **Result**: PASS — all 6 quickstart steps verified: (1) `.nvmrc` resolves to Node 24.18.0
+  matching `engines`; (2)/(3) install/build/lint/full test suite green under Node 24;
+  (4) Docker image builds and runs on `node:24-alpine`; (5) real CI run green on Node 24;
+  (6) no stale Node 20 references outside historical/third-party lockfile metadata.
 
 ---
 
