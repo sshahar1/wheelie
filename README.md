@@ -46,3 +46,14 @@ a tunnel) pointed at `/webhook/whatsapp` for Meta's webhook callback during loca
 
 See `specs/001-dance-performance-bot/plan.md` for the full technical plan and
 `specs/001-dance-performance-bot/data-model.md` for the data model.
+
+## Deployment
+
+The app deploys to [Railway](https://railway.com) as a Docker container: `railway.toml` builds
+the image from the root `Dockerfile`, which runs `prisma migrate deploy` before starting the
+server on every boot, and restarts automatically on failure. Railway is connected to this
+GitHub repository, so every push/merge to `main` deploys automatically.
+
+See `specs/007-railway-deployment/quickstart.md` for the full production setup walkthrough
+(Railway project creation, Postgres provisioning, production environment variables, roster
+seeding, and registering the webhook with Meta).

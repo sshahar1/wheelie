@@ -46,3 +46,59 @@ jobs:
       - run: npx prisma migrate deploy
       - run: npm run lint
       - run: npm test
+
+  docker-smoke:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: dance_performance_bot
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build production Docker image
+        run: docker build -t wheelie-smoke .
+
+      - name: Boot image and verify migrate-then-start sequence
+        run: |
+          docker run -d --name wheelie-smoke-app --network host \
+            -e DATABASE_URL=postgresql://postgres:postgres@localhost:5432/dance_performance_bot \
+            -e WHATSAPP_ACCESS_TOKEN=ci-placeholder \
+            -e WHATSAPP_PHONE_NUMBER_ID=ci-placeholder \
+            -e WHATSAPP_VERIFY_TOKEN=ci-placeholder \
+            -e WHATSAPP_APP_SECRET=ci-placeholder \
+            -e WHATSAPP_ACTIVATION_KEYWORD="@bot" \
+            -e OPENAI_API_KEY=ci-placeholder \
+            wheelie-smoke
+
+          for i in $(seq 1 30); do
+            if docker logs wheelie-smoke-app 2>&1 | grep -q "Nest application successfully started"; then
+              echo "App started successfully"
+              exit 0
+            fi
+            if [ "$(docker inspect -f '{{.State.Status}}' wheelie-smoke-app)" != "running" ]; then
+              echo "Container exited unexpectedly"
+              docker logs wheelie-smoke-app
+              exit 1
+            fi
+            sleep 1
+          done
+          echo "Timed out waiting for startup log"
+          docker logs wheelie-smoke-app
+          exit 1
+
+      - name: Show logs on failure
+        if: failure()
+        run: docker logs wheelie-smoke-app || true

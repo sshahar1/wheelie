@@ -1,0 +1,146 @@
+{
+  "feature": "007-railway-deployment",
+  "created": "2026-07-04T16:35:59+03:00",
+  "tasks": {
+    "T001": {
+      "description": "Author railway.toml (Dockerfile builder, ON_FAILURE restart policy)",
+      "files": "railway.toml",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T16:38:08+03:00",
+      "completed_at": "2026-07-04T16:40:12+03:00",
+      "result_summary": "railway.toml created and reviewed"
+    },
+    "T002": {
+      "description": "Edit Dockerfile CMD to run prisma migrate deploy before start",
+      "files": "Dockerfile",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T16:38:08+03:00",
+      "completed_at": "2026-07-04T16:40:12+03:00",
+      "result_summary": "Dockerfile CMD updated + prisma CLI copy fix; verified locally via docker build + boot against ephemeral postgres:18-alpine"
+    },
+    "T003": {
+      "description": "Add CI Docker build/boot smoke test job",
+      "files": ".github/workflows/ci.yml",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T16:40:51+03:00",
+      "completed_at": "2026-07-04T16:41:51+03:00",
+      "result_summary": "Added docker-smoke CI job; validated manually via local docker build+run replicating this exact sequence"
+    },
+    "T004": {
+      "description": "Create Railway project and connect GitHub repo",
+      "files": "railway-dashboard",
+      "execution_mode": "SYNC",
+      "status": "pending",
+      "agent_type": "general",
+      "started_at": null,
+      "completed_at": null,
+      "result_summary": null
+    },
+    "T005": {
+      "description": "Add managed Postgres service in Railway",
+      "files": "railway-dashboard",
+      "execution_mode": "SYNC",
+      "status": "pending",
+      "agent_type": "general",
+      "started_at": null,
+      "completed_at": null,
+      "result_summary": null
+    },
+    "T006": {
+      "description": "Configure production env vars in Railway with real credentials",
+      "files": "railway-dashboard",
+      "execution_mode": "SYNC",
+      "status": "pending",
+      "agent_type": "general",
+      "started_at": null,
+      "completed_at": null,
+      "result_summary": null
+    },
+    "T007": {
+      "description": "Trigger first deploy and confirm build/migrate/start/HTTPS reachability",
+      "files": "railway-dashboard",
+      "execution_mode": "SYNC",
+      "status": "pending",
+      "agent_type": "general",
+      "started_at": null,
+      "completed_at": null,
+      "result_summary": null
+    },
+    "T008": {
+      "description": "Register production webhook URL + verify token in Meta dashboard",
+      "files": "meta-dashboard",
+      "execution_mode": "SYNC",
+      "status": "pending",
+      "agent_type": "general",
+      "started_at": null,
+      "completed_at": null,
+      "result_summary": null
+    },
+    "T009": {
+      "description": "Seed production TroupeMember roster (PII)",
+      "files": "production-database",
+      "execution_mode": "SYNC",
+      "status": "pending",
+      "agent_type": "general",
+      "started_at": null,
+      "completed_at": null,
+      "result_summary": null
+    },
+    "T010": {
+      "description": "Add bot to troupe group and confirm real group reply",
+      "files": "whatsapp-group",
+      "execution_mode": "SYNC",
+      "status": "pending",
+      "agent_type": "general",
+      "started_at": null,
+      "completed_at": null,
+      "result_summary": null
+    },
+    "T011": {
+      "description": "Force crash and confirm automatic restart",
+      "files": "railway-dashboard",
+      "execution_mode": "SYNC",
+      "status": "pending",
+      "agent_type": "general",
+      "started_at": null,
+      "completed_at": null,
+      "result_summary": null
+    },
+    "T012": {
+      "description": "Verify failed deploy does not take down previous working version",
+      "files": "railway-dashboard",
+      "execution_mode": "SYNC",
+      "status": "pending",
+      "agent_type": "general",
+      "started_at": null,
+      "completed_at": null,
+      "result_summary": null
+    },
+    "T013": {
+      "description": "Add Deployment section to README.md",
+      "files": "README.md",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T16:41:58+03:00",
+      "completed_at": "2026-07-04T16:42:40+03:00",
+      "result_summary": "Added Deployment section to README.md"
+    },
+    "T014": {
+      "description": "Review quickstart.md against final implementation",
+      "files": "specs/007-railway-deployment/quickstart.md",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T16:41:58+03:00",
+      "completed_at": "2026-07-04T16:42:40+03:00",
+      "result_summary": "Reviewed quickstart.md against final Dockerfile/railway.toml/CI implementation - already consistent, no changes needed"
+    }
+  }
+}
