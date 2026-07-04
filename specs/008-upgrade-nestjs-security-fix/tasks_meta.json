@@ -1,0 +1,162 @@
+{
+  "feature": "008-upgrade-nestjs-security-fix",
+  "created": "2026-07-04T17:07:37+03:00",
+  "tasks": {
+    "T001": {
+      "description": "Capture baseline npm audit, test coverage, and webhook-latency bench results",
+      "files": "specs/008-upgrade-nestjs-security-fix/baseline.md",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T17:17:11+03:00",
+      "completed_at": "2026-07-04T17:18:50+03:00",
+      "result_summary": "Captured baseline: 23 audit vulns, 20/20 suites pass, 94.43% stmt coverage, saved to baseline.md"
+    },
+    "T002": {
+      "description": "Update @nestjs/core, common, platform-express, testing to ^11.1.27 in package.json",
+      "files": "package.json",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T17:19:02+03:00",
+      "completed_at": "2026-07-04T17:19:32+03:00",
+      "result_summary": "Bumped @nestjs/core,common,platform-express,testing to ^11.1.27 in package.json"
+    },
+    "T003": {
+      "description": "Update @nestjs/config to ^4.0.4 in package.json",
+      "files": "package.json",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T17:19:02+03:00",
+      "completed_at": "2026-07-04T17:19:32+03:00",
+      "result_summary": "Bumped @nestjs/config to ^4.0.4 in package.json"
+    },
+    "T004": {
+      "description": "Update @nestjs/cli to ^11.0.23 in package.json",
+      "files": "package.json",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T17:19:02+03:00",
+      "completed_at": "2026-07-04T17:19:32+03:00",
+      "result_summary": "Bumped @nestjs/cli to ^11.0.23 in package.json"
+    },
+    "T005": {
+      "description": "Run npm install to regenerate package-lock.json",
+      "files": "package-lock.json",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T17:19:42+03:00",
+      "completed_at": "2026-07-04T17:21:28+03:00",
+      "result_summary": "npm install succeeded, lockfile regenerated; residual: multer@2.1.1 pinned by platform-express@11.1.27 still has 2 high-sev DoS advisories (fix needs multer 2.2.0, not yet adopted upstream); app has no file-upload routes so unreachable"
+    },
+    "T006": {
+      "description": "Run build and test, diagnose and fix v10 to v11 breaking-change fallout",
+      "files": "src/main.ts,src/common/config/config.module.ts",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T17:21:34+03:00",
+      "completed_at": "2026-07-04T17:26:26+03:00",
+      "result_summary": "Build succeeded, no code changes needed for v10->v11 migration. Full suite green in 3/3 reruns (20/20 suites, 36/36 tests); one isolated flaky failure observed (different status code each time: 501 then 503) consistent with pre-existing test-infra timing flakiness, not a version-specific regression",
+      "micro_reviewed_at": "2026-07-04T17:26:26+03:00",
+      "micro_review_passed": true
+    },
+    "T007": {
+      "description": "Run npm audit and confirm zero findings for nestjs packages",
+      "files": "N/A",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T17:27:04+03:00",
+      "completed_at": "2026-07-04T17:27:19+03:00",
+      "result_summary": "npm audit: zero findings for @nestjs/core, @nestjs/config, @nestjs/cli (down from 23 to 4). Residual: multer@2.1.1 pinned by platform-express, unreachable (no upload routes)"
+    },
+    "T008": {
+      "description": "Re-run npm run build standalone and confirm no errors",
+      "files": "N/A",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T17:27:04+03:00",
+      "completed_at": "2026-07-04T17:27:19+03:00",
+      "result_summary": "npm run build succeeds standalone with no errors"
+    },
+    "T009": {
+      "description": "Run npm test and test:cov, confirm no coverage regression",
+      "files": "N/A",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T17:27:33+03:00",
+      "completed_at": "2026-07-04T17:28:40+03:00",
+      "result_summary": "20/20 suites, 36/36 tests pass; coverage identical to baseline (94.43% stmts); no regression"
+    },
+    "T010": {
+      "description": "Run npm run start:dev and confirm clean startup",
+      "files": "N/A",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T17:29:52+03:00",
+      "completed_at": "2026-07-04T17:40:30+03:00",
+      "result_summary": "Dev server starts cleanly on Express v5/NestJS v11, all modules init, routes map correctly, webhook verify GET returns 200. (Required recreating a locally-vanished Postgres container to test this, unrelated to the upgrade)"
+    },
+    "T011": {
+      "description": "Run npm run build and start:prod and confirm clean startup",
+      "files": "N/A",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T17:29:52+03:00",
+      "completed_at": "2026-07-04T17:41:18+03:00",
+      "result_summary": "npm run build + node dist/main.js starts cleanly, all modules init, routes mapped, no errors/warnings"
+    },
+    "T012": {
+      "description": "Perform manual smoke test of core WhatsApp bot flows in non-production",
+      "files": "N/A",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": null,
+      "completed_at": "2026-07-04T17:43:28+03:00",
+      "result_summary": "Real HTTP smoke test against compiled prod build: signature verification, unauthorized-sender rejection, and authorized-sender extraction path all behave correctly; unhandled downstream error (fake OpenAI key) correctly caught by default exception filter as 500, process survived. Limitation: used placeholder OpenAI/WhatsApp credentials, not real ones - full E2E with real WhatsApp Business API needs human verification in staging before prod deploy",
+      "micro_reviewed_at": "2026-07-04T17:43:28+03:00",
+      "micro_review_passed": true
+    },
+    "T013": {
+      "description": "Write migration notes documenting v10 to v11 breaking-change adjustments",
+      "files": "specs/008-upgrade-nestjs-security-fix/migration-notes.md",
+      "execution_mode": "SYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T17:47:01+03:00",
+      "completed_at": "2026-07-04T17:47:31+03:00",
+      "result_summary": "Wrote migration-notes.md documenting dependency changes, zero code changes needed, verification results, residual multer finding, and pre-existing flake observation",
+      "micro_reviewed_at": "2026-07-04T17:47:31+03:00",
+      "micro_review_passed": true
+    },
+    "T014": {
+      "description": "Run npm run lint and npm run format, confirm zero new warnings",
+      "files": "src/**/*.ts,tests/**/*.ts",
+      "execution_mode": "ASYNC",
+      "status": "completed",
+      "agent_type": "general",
+      "started_at": "2026-07-04T17:47:48+03:00",
+      "completed_at": "2026-07-04T17:49:08+03:00",
+      "result_summary": "lint: 0 warnings. format check: 9 pre-existing files flagged, confirmed unrelated to this change (prettier's resolved version 3.9.4 unchanged by the upgrade, and none of the 9 files were touched here) - out of scope to fix"
+    },
+    "T015": {
+      "description": "Open PR and obtain human review for constitution compliance",
+      "files": "N/A",
+      "execution_mode": "SYNC",
+      "status": "pending",
+      "agent_type": "general",
+      "started_at": null,
+      "completed_at": null,
+      "result_summary": null
+    }
+  }
+}
