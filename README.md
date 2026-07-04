@@ -1,5 +1,7 @@
 # Dance Troupe Performance Bot
 
+[![CI](https://github.com/sshahar1/wheelie/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/sshahar1/wheelie/actions/workflows/ci.yml)
+
 A WhatsApp bot for a dance troupe's group chat that manages the dates and locations of
 upcoming performances — add, update, query, and cancel, all via natural-language messages.
 Built on the same architecture as the reference app this was inspired by: NestJS + Prisma +
